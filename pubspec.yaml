@@ -42,7 +42,7 @@ dependencies:
   date_picker_timeline:
   sqflite:
   path:
-#  flutter_local_notifications:
+  flutter_local_notifications:
   flutter_native_timezone:
   firebase_core: ^2.7.1
   cloud_firestore: ^4.4.4

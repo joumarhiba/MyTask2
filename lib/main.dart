@@ -15,15 +15,14 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-       channelKey: 'basic_channel',
-       channelName: 'Basic notif', 
-       channelDescription: 'Notification channel test')
-    ],
-    debug: true
-  );
+      null,
+      [
+        NotificationChannel(
+            channelKey: 'basic_channel',
+            channelName: 'Basic notif',
+            channelDescription: 'Notification channel test')
+      ],
+      debug: true);
   runApp(const MyApp());
 }
 
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter todo app',
       debugShowCheckedModeBanner: false,
       theme: Themes.light,
       darkTheme: Themes.dark,

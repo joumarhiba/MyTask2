@@ -189,13 +189,13 @@ class _AddTaskBarState extends State<AddTaskBar> {
         child: Icon(
           Icons.arrow_back_ios,
           size: 20,
-          color: Get.isDarkMode ? Colors.black : Colors.white,
+          color:  Colors.black,
         ),
       ),
       actions: [
         CircleAvatar(
           backgroundImage: AssetImage(
-            "images/avatar.png",
+            "images/user-avatar.jpg",
           ),
           backgroundColor: Colors.white,
         ),

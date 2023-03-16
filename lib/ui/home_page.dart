@@ -18,8 +18,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
-
-import '../conf/db.dart';
 import 'get_started.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,16 +29,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   DateTime _selectedDate = DateTime.now();
+
   final _taskController = Get.put(TaskController());
+
   var notifyHelper;
   @override
   void initState() {
     super.initState();
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
+
+    notifyHelper = NotifyHelper();
+    NotifyHelper().initializeNotification();
+    notifyHelper.requestIOSPermissions();
   }
 
   @override
@@ -49,19 +48,13 @@ class _HomePageState extends State<HomePage> {
       appBar: _appBar(),
       body: Column(
         children: [
-         const GetStarted(),
+          const GetStarted(),
           Container(
               margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _addTaskBar(),
-                  MyButton(
-                      label: "+ Add Task",
-                      onTap: () async {
-                        await Get.to(AddTaskBar());
-                        _taskController.getTasks();
-                      }),
                 ],
               )),
           _addDateBar(),
@@ -82,7 +75,7 @@ class _HomePageState extends State<HomePage> {
         height: 100,
         width: 80,
         initialSelectedDate: DateTime.now(),
-        selectionColor: Color.fromARGB(255, 68, 28, 248),
+        selectionColor: Color.fromARGB(255, 17, 17, 18),
         selectedTextColor: Colors.white,
         dateTextStyle: GoogleFonts.lato(
           textStyle: TextStyle(
@@ -114,16 +107,19 @@ class _HomePageState extends State<HomePage> {
 
   _addTaskBar() {
     return Container(
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            DateFormat.yMMMMd().format(DateTime.now()),
-            style: subHeadingStyle,
-          ),
-          Text(
             "Today",
             style: headingStyle,
+          ),
+          SizedBox(
+            width: 127,
+          ),
+          Text(
+            DateFormat.yMMMMd().format(DateTime.now()),
+            style: subHeadingStyle,
           ),
         ],
       ),
@@ -158,11 +154,15 @@ class _HomePageState extends State<HomePage> {
           child: GestureDetector(
             onTap: () {
               ThemeService().switchTheme();
-              NotificationService().displayNotification();
+              NotifyHelper().displayNotification(
+                  title: "Theme Changed",
+                  body: Get.isDarkMode
+                      ? "Activated Light Mode"
+                      : "Activated Dark Mode");
               print(Get.isDarkMode);
             },
             child: Icon(
-              Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
+              Get.isDarkMode ? Icons.wb_sunny_rounded : Icons.nightlight_round,
               size: 20,
               color: Get.isDarkMode ? Colors.white : Colors.black,
             ),
