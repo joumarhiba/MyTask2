@@ -93,13 +93,13 @@ class TaskTile extends StatelessWidget {
   _getBGClr(int no) {
     switch (no) {
       case 0:
-        return Colors.blueAccent;
+        return Colors.blue[900];
       case 1:
-        return Colors.pink;
+        return Color.fromARGB(255, 173, 73, 191);
       case 2:
-        return Colors.yellow;
+        return Colors.yellow[900];
       default:
-        return Colors.blue;
+        return Colors.blue[900];
     }
   }
 }

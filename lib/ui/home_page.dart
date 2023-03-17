@@ -57,50 +57,12 @@ class _HomePageState extends State<HomePage> {
                   _addTaskBar(),
                 ],
               )),
-          _addDateBar(),
+          // _addDateBar(),
           SizedBox(
             height: 20,
           ),
           _showTasks(),
         ],
-      ),
-    );
-  }
-
-  _addDateBar() {
-    return Container(
-      margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
-      child: DatePicker(
-        DateTime.now(),
-        height: 100,
-        width: 80,
-        initialSelectedDate: DateTime.now(),
-        selectionColor: Color.fromARGB(255, 17, 17, 18),
-        selectedTextColor: Colors.white,
-        dateTextStyle: GoogleFonts.lato(
-          textStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey,
-          ),
-        ),
-        dayTextStyle: GoogleFonts.lato(
-          textStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey,
-          ),
-        ),
-        monthTextStyle: GoogleFonts.lato(
-          textStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey,
-          ),
-        ),
-        onDateChange: (date) {
-          _selectedDate = date;
-        },
       ),
     );
   }
@@ -154,11 +116,7 @@ class _HomePageState extends State<HomePage> {
           child: GestureDetector(
             onTap: () {
               ThemeService().switchTheme();
-              NotifyHelper().displayNotification(
-                  title: "Theme Changed",
-                  body: Get.isDarkMode
-                      ? "Activated Light Mode"
-                      : "Activated Dark Mode");
+              // NotifyHelper().displayNotification( title: "Theme Changed",  body: Get.isDarkMode  ? "Activated Light Mode"  : "Activated Dark Mode");
               print(Get.isDarkMode);
             },
             child: Icon(

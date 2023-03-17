@@ -189,7 +189,7 @@ class _AddTaskBarState extends State<AddTaskBar> {
         child: Icon(
           Icons.arrow_back_ios,
           size: 20,
-          color:  Colors.black,
+          color: Colors.black,
         ),
       ),
       actions: [

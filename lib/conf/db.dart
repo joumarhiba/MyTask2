@@ -1,5 +1,3 @@
-
-
 import 'package:sqflite/sqflite.dart';
 
 import '../models/task.dart';
@@ -16,24 +14,21 @@ class DataBaseHelper {
     }
     try {
       String path = '${await getDatabasesPath()}task.db';
-      _db = await openDatabase(
-        path,
-        version: _version,
-        onCreate: (_db, _version) {
-         print("table created");
-         return _db.execute(
-           "CREATE TABLE $_table("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT ,"
-               "title STRING,"
-               "note TEXT, date STRING,"
-               "startTime STRING, endTime STRING,"
-               "remind INTEGER, repeat STRING,"
-               "color INTEGER,"
-               "isCompleted INTEGER)",
-         );
-        }
-      );
-    } catch(e){
+      _db = await openDatabase(path, version: _version,
+          onCreate: (_db, _version) {
+        print("table created");
+        return _db.execute(
+          "CREATE TABLE $_table("
+          "id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+          "title STRING,"
+          "note TEXT, date STRING,"
+          "startTime STRING, endTime STRING,"
+          "remind INTEGER, repeat STRING,"
+          "color INTEGER,"
+          "isCompleted INTEGER)",
+        );
+      });
+    } catch (e) {
       print(e);
     }
   }
@@ -44,17 +39,14 @@ class DataBaseHelper {
     }
     try {
       String path = '${await getDatabasesPath()}task.db';
-      _db = await openDatabase(
-          path,
-          version: _version,
-          onCreate: (db, _version) {
-            print("TABLE DELETED");
-            return db.execute(
-              "DROP TABLE $_table",
-            );
-          }
-      );
-    } catch(e){
+      _db =
+          await openDatabase(path, version: _version, onCreate: (db, _version) {
+        print("TABLE DELETED");
+        return db.execute(
+          "DROP TABLE $_table",
+        );
+      });
+    } catch (e) {
       print(e);
     }
   }
@@ -69,4 +61,7 @@ class DataBaseHelper {
     return await _db!.query(_table);
   }
 
+  static delete(Task task) async {
+    await _db!.delete(_table, where: 'id:?', whereArgs: [task.id]);
+  }
 }
